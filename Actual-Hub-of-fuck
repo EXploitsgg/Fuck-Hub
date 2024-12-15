@@ -1,0 +1,257 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+local Window = OrionLib:MakeWindow({Name = "Fuck Hub - discord.gg/U6Vtuu6V", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+local Tab = Window:MakeTab({
+	Name = "Aimbot & esp",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Aimbot"
+})
+
+Tab:AddToggle({
+	Name = "Aimbot",
+	Default = false,
+	Callback = function(Value)
+		-- Lock-On Script for Roblox (Toggle Lock-On Mode with "l", Lock with Right Mouse Button)
+local UserInputService = game:GetService("UserInputService")
+local camera = game.Workspace.CurrentCamera
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+local players = game.Players  -- Reference to Players service
+
+-- Variable to store the locked-on player
+local lockedOnPlayer = nil
+local isLockOnEnabled = false  -- Flag to track if lock-on mode is enabled
+local lockOnCamera = false -- Flag to track if the camera is in lock-on mode
+
+-- Function to lock onto the player under the mouse
+local function lockOnToPlayer()
+    local target = mouse.Target
+    if target and target.Parent then
+        local character = target.Parent
+        -- Check if the target is a player's character
+        if game.Players:GetPlayerFromCharacter(character) then
+            lockedOnPlayer = game.Players:GetPlayerFromCharacter(character)
+            lockOnCamera = true
+        else
+            lockedOnPlayer = nil
+            lockOnCamera = false
+        end
+    end
+end
+
+-- Function to update the camera to look at the locked-on player's head
+local function updateCamera()
+    if lockedOnPlayer then
+        local targetChar = lockedOnPlayer.Character
+        if targetChar and targetChar:FindFirstChild("Head") then  -- Lock onto the Head part instead
+            local targetPosition = targetChar.Head.Position
+            -- Make the camera look at the target player's head while keeping the player in their own perspective
+            camera.CFrame = CFrame.new(camera.CFrame.Position, targetPosition)
+        end
+    end
+end
+
+-- Function to reset the camera to follow your character
+local function resetCamera()
+    -- Ensure the camera returns to normal when lock-on mode is off
+    camera.CameraSubject = player.Character.Humanoid
+    lockOnCamera = false
+end
+
+-- Function to handle new players joining
+local function onPlayerAdded(newPlayer)
+    -- We can add specific behavior when new players join if needed, but for now, it's automatic.
+    -- There's no need to explicitly handle lock-on for new players as the logic will work for any player.
+end
+
+-- Listen for new players joining the game
+players.PlayerAdded:Connect(onPlayerAdded)
+
+-- Listen for the "l" key press to toggle lock-on mode
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+
+    if input.KeyCode == Enum.KeyCode.L then  -- lowercase "l" key to toggle lock-on mode
+        isLockOnEnabled = not isLockOnEnabled  -- Toggle lock-on mode
+
+        if not isLockOnEnabled then
+            lockedOnPlayer = nil  -- Release lock if turning off
+            resetCamera()  -- Reset the camera to follow your character
+        end
+    end
+end)
+
+-- Listen for the right mouse button press to lock onto the player under the mouse
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+
+    if input.UserInputType == Enum.UserInputType.MouseButton2 and isLockOnEnabled then  -- Right mouse button
+        lockOnToPlayer()  -- Lock onto the player under the mouse
+    end
+end)
+
+-- Listen for when the right mouse button is released
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton2 then  -- Right mouse button
+        lockedOnPlayer = nil  -- Release lock
+        resetCamera()  -- Reset the camera when the mouse button is released
+    end
+end)
+
+-- Continuously update the camera while the player is locked on
+game:GetService("RunService").RenderStepped:Connect(function()
+    if lockOnCamera then
+        updateCamera()  -- Keep the camera focused on the locked-on player's head
+    end
+end)
+
+	end    
+})
+
+Tab:AddParagraph("IMPORTANT","One you toggle the checkbox to Aimbot Its infinite and wont finish just note if you press (L) on your keyboard it turns it on and off")
+
+local Section = Tab:AddSection({
+	Name = "Esp"
+})
+
+Tab:AddParagraph("Esp","To turn of esp press the button to activate then press (T) on your keyboard to activate the esp!")
+
+Tab:AddButton({
+	Name = "Turn on esp",
+	Callback = function()
+      		local UserInputService = game:GetService("UserInputService")
+local players = game:GetService("Players")
+local runService = game:GetService("RunService")
+local player = players.LocalPlayer
+
+local showSquares = false  -- Flag to check if squares should be shown
+local squares = {}  -- Table to store the squares for each player
+
+-- Function to create a square around a player
+local function createSquareForPlayer(targetPlayer)
+    local character = targetPlayer.Character
+    if not character or character:FindFirstChild("Head") == nil then
+        return
+    end
+    
+    -- Create the part (square) that will go around the player's head
+    local square = Instance.new("Part")
+    square.Size = Vector3.new(4, 4, 1)  -- Square dimensions
+    square.Shape = Enum.PartType.Cylinder
+    square.Anchored = true
+    square.CanCollide = false
+    square.Transparency = 0.5
+    square.BrickColor = BrickColor.new("Bright blue")  -- Color for the square
+    square.Parent = game.Workspace
+    
+    -- Position the square above the player's head
+    local head = character:FindFirstChild("Head")
+    square.Position = head.Position + Vector3.new(0, 3, 0)  -- Adjust height to be above the head
+    
+    -- Create a BillboardGui to display the square
+    local billboard = Instance.new("BillboardGui")
+    billboard.Adornee = head  -- Attach the square to the player's head
+    billboard.Size = UDim2.new(0, 100, 0, 100)  -- Size of the square in GUI terms
+    billboard.StudsOffset = Vector3.new(0, 3, 0)  -- Offset above the head
+    billboard.AlwaysOnTop = true  -- Ensure square is always on top and visible through walls
+    billboard.Parent = square
+    
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(1, 0, 1, 0)
+    frame.BackgroundColor3 = Color3.fromRGB(0, 0, 255)  -- Blue color for the square
+    frame.BackgroundTransparency = 0.5
+    frame.BorderSizePixel = 0
+    frame.Parent = billboard
+    
+    -- Store the square so we can remove it later
+    squares[targetPlayer] = square
+end
+
+-- Function to remove the square around a player
+local function removeSquareForPlayer(targetPlayer)
+    local square = squares[targetPlayer]
+    if square then
+        square:Destroy()
+        squares[targetPlayer] = nil
+    end
+end
+
+-- Function to update squares (keep them in the correct position)
+local function updateSquares()
+    for _, square in pairs(squares) do
+        if square and square.Parent then
+            local player = players:GetPlayerFromCharacter(square.Parent)
+            if player and player.Character then
+                local head = player.Character:FindFirstChild("Head")
+                if head then
+                    square.Position = head.Position + Vector3.new(0, 3, 0)
+                end
+            end
+        end
+    end
+end
+
+-- Function to toggle square visibility on and off
+local function toggleSquares()
+    showSquares = not showSquares
+
+    if showSquares then
+        -- Show squares for all players in the game
+        for _, targetPlayer in pairs(players:GetPlayers()) do
+            if targetPlayer ~= player then
+                createSquareForPlayer(targetPlayer)
+            end
+        end
+    else
+        -- Remove all squares
+        for _, targetPlayer in pairs(players:GetPlayers()) do
+            removeSquareForPlayer(targetPlayer)
+        end
+    end
+end
+
+-- Listen for the "T" key to toggle the squares
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+
+    if input.KeyCode == Enum.KeyCode.T then
+        toggleSquares()
+    end
+end)
+
+-- Listen for new players joining and create a square for them
+players.PlayerAdded:Connect(function(newPlayer)
+    if showSquares then
+        newPlayer.CharacterAdded:Connect(function()
+            createSquareForPlayer(newPlayer)
+        end)
+    end
+end)
+
+-- Update the square positions each frame
+runService.RenderStepped:Connect(function()
+    if showSquares then
+        updateSquares()
+    end
+end)
+
+-- Create squares for players already in the game
+for _, targetPlayer in pairs(players:GetPlayers()) do
+    if targetPlayer ~= player then
+        targetPlayer.CharacterAdded:Connect(function()
+            if showSquares then
+                createSquareForPlayer(targetPlayer)
+            end
+        end)
+    end
+end
+
+  	end    
+})
+
+OrionLib:Init()
