@@ -2,6 +2,13 @@ local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shl
 
 local Window = OrionLib:MakeWindow({Name = "Fuck Hub - discord.gg/U6Vtuu6V", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
+OrionLib:MakeNotification({
+	Name = "Excuted!",
+	Content = "",
+	Image = "Successfully Excuted the script! Join our discord to report bugs! -https://discord.gg/beKw9JB5qW",
+	Time = 5
+})
+
 local Tab = Window:MakeTab({
 	Name = "📍 | Information",
 	Icon = "rbxassetid://4483345998",
