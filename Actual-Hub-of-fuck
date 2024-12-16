@@ -1,9 +1,20 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
-local Window = OrionLib:MakeWindow({Name = "Fuck Hub - discord.gg/U6Vtuu6V", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({Name = "Fuck Hub - discord.gg/U6Vtuu6V", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
 local Tab = Window:MakeTab({
-	Name = "Aimbot & esp",
+	Name = "📍 | Information",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddLabel("Status : 🟢")
+Tab:AddLabel("Made By : EXploits")
+Tab:AddLabel("Coded By : Im just a chill dev")
+Tab:AddParagraph("Bugs & updates","Update 1 : added information tab.")
+
+local Tab = Window:MakeTab({
+	Name = "☢️ | Aimbot & esp",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -11,6 +22,8 @@ local Tab = Window:MakeTab({
 local Section = Tab:AddSection({
 	Name = "Aimbot"
 })
+
+Tab:AddParagraph("Bug","When you press the checkbox it turns on forever do not toggle the checkbox on Press (L) to tun on and off")
 
 Tab:AddToggle({
 	Name = "Aimbot",
@@ -113,7 +126,7 @@ end)
 	end    
 })
 
-Tab:AddParagraph("IMPORTANT","One you toggle the checkbox to Aimbot Its infinite and wont finish just note if you press (L) on your keyboard it turns it on and off")
+Tab:AddParagraph("IMPORTANT","DO NOT TOGGLE THE CHECKBOX")
 
 local Section = Tab:AddSection({
 	Name = "Esp"
