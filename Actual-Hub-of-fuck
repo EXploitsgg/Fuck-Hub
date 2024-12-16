@@ -11,7 +11,7 @@ local Tab = Window:MakeTab({
 Tab:AddLabel("Status : 🟢")
 Tab:AddLabel("Made By : EXploits")
 Tab:AddLabel("Coded By : Im just a chill dev")
-Tab:AddParagraph("Bugs & updates","Update 1 : added information tab.")
+Tab:AddParagraph("Bugs & updates","Update 1 : added information tab. | Update 2 : Fixed Aimbot bug")
 
 local Tab = Window:MakeTab({
 	Name = "☢️ | Aimbot & esp",
@@ -23,13 +23,12 @@ local Section = Tab:AddSection({
 	Name = "Aimbot"
 })
 
-Tab:AddParagraph("Bug","When you press the checkbox it turns on forever do not toggle the checkbox on Press (L) to tun on and off")
+Tab:AddParagraph("IMPORTANT","When you press activate aimbot you need to turn it on and off with the (L) Key on your keyboard")
 
-Tab:AddToggle({
-	Name = "Aimbot",
-	Default = false,
-	Callback = function(Value)
-		-- Lock-On Script for Roblox (Toggle Lock-On Mode with "l", Lock with Right Mouse Button)
+Tab:AddButton({
+	Name = "Activate Aimbot",
+	Callback = function()
+      		-- Lock-On Script for Roblox (Toggle Lock-On Mode with "l", Lock with Right Mouse Button)
 local UserInputService = game:GetService("UserInputService")
 local camera = game.Workspace.CurrentCamera
 local player = game.Players.LocalPlayer
@@ -122,11 +121,9 @@ game:GetService("RunService").RenderStepped:Connect(function()
         updateCamera()  -- Keep the camera focused on the locked-on player's head
     end
 end)
-
-	end    
+  	end    
 })
 
-Tab:AddParagraph("IMPORTANT","DO NOT TOGGLE THE CHECKBOX")
 
 local Section = Tab:AddSection({
 	Name = "Esp"
